@@ -17,7 +17,63 @@ Before beginning to answer questions, take some time to review the data dictiona
    	
 
 
-3.	How many postings are in Tennessee? How many are there in either Tennessee or Kentucky?
+--3.	How many postings are in Tennessee? How many are there in either Tennessee or Kentucky?
+
+SELECT COUNT (*)
+FROM data_analyst_jobs
+WHERE location = 'TN';
+21
+
+--
+SELECT COUNT (*)
+FROM data_analyst_jobs
+WHERE location = 'TN'OR 'KY';
+--
+--4.How many postings in Tennessee have a star rating above 4?
+SELECT COUNT (*)
+  FROM data_analyst_jobs
+  WHERE location = 'TN' AND start_rating>4;
+   answer '3'
+ --5. How many postings in the dataset have a review count between 500 and 1000?
+  
+  	SELECT COUNT (*)
+  FROM data_analyst_jobs
+  WHERE review_count BETWEEN 500 and 1000;	
+  
+  ANS '151' 
+  
+  
+  --6.show the average star rating for companies in each state.The output should show the state as `state` and the average rating for the as `avg_rating`. Which state shows the highest average rating?
+
+  SELECT location AS state,
+  AVG(start_rating) AS average_rating
+  FROM data_analyst_jobs
+  GROUP BY state
+  ORDER BY average_rating DESC;
+  
+ --7. Select unique job titles from the data_analyst_jobs table. How many are there?
+
+  SELECT COUNT (DISTINCT title)
+  FROM data_analyst_jobs;
+  
+  ans '881'
+  
+  
+  
+
+
+
+
+
+
+
+
+
+     
+	
+	
+	
+	
 
 4.	How many postings in Tennessee have a star rating above 4?
 
