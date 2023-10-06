@@ -27,13 +27,13 @@ WHERE location = 'TN';
 --
 SELECT COUNT (*)
 FROM data_analyst_jobs
-WHERE location = 'TN'OR 'KY';
---
+WHERE location = 'TN'OR location ='KY';
+--Ans 27
 --4.How many postings in Tennessee have a star rating above 4?
 SELECT COUNT (*)
   FROM data_analyst_jobs
   WHERE location = 'TN' AND start_rating>4;
-   answer '3'
+--    answer '3'
  --5. How many postings in the dataset have a review count between 500 and 1000?
   
   	SELECT COUNT (*)
@@ -58,41 +58,63 @@ SELECT COUNT (*)
   
   ans '881'
   
-  
-  
+  --8.How many unique job titles are there for California companies?
+  SELECT COUNT (DISTINCT title)
+  FROM data_analyst_jobs
+   WHERE location ='CA';
+    ans '230'
+	/*9.Find the name of each company and its average star rating 
+		for all companies that have more than 5000 reviews across all locations. 
+		How many companies are there with more that 5000 reviews across all locations?*/
+
+   SELECT company, avg(start_rating)
+   FROM data_analyst_jobs
+   WHERE review_count > 5000 AND company IS NOT null
+   Group by company 
+   
+   select COUNT (DISTINCT(UPPER(company)))
+   
+	   FROM data_analyst_jobs
+	   WHERE company IS NOT NULL AND  review_count > 5000
+	   
+-- 	   Ans=40
+    
+/*10.0.	Add the code to order the query in #9 from highest to lowest average star rating. 
+	Which company with more than 5000 reviews across all locations in the dataset has the highest star rating? 
+	What is that rating?*/
+
+
+SELECT company, avg(start_rating) as avg_star_rating
+   FROM data_analyst_jobs
+   WHERE review_count > 5000
+   Group by company
+   order by avg_star_rating desc
+   
+--    select company,review_count
+--    from (SELECT company, review_count
+-- 	   FROM data_analyst_jobs
+-- 		 order by review_count asc
+-- 	   )
+-- 	   where review_count = max(review_count);
+-- 	   Group by company, review_count
 
 
 
 
+--11.Find all the job titles that contain the word ‘Analyst’. How many different job titles are there? 
+ SELECT COUNT(title)
+ FROM data_analyst_jobs
+ WHERE title LIKE '%Analyst%';
+ 'ans'1636
+ 
+ --12.ow many different job titles do not contain either the word ‘Analyst’ or the word ‘Analytics’? What word do these positions have in common?
 
 
-
-
-
-     
-	
-	
-	
-	
-
-4.	How many postings in Tennessee have a star rating above 4?
-
-5.	How many postings in the dataset have a review count between 500 and 1000?
-
-6.	Show the average star rating for companies in each state. The output should show the state as `state` and the average rating for the state as `avg_rating`. Which state shows the highest average rating?
-
-7.	Select unique job titles from the data_analyst_jobs table. How many are there?
-
-8.	How many unique job titles are there for California companies?
-
-9.	Find the name of each company and its average star rating for all companies that have more than 5000 reviews across all locations. How many companies are there with more that 5000 reviews across all locations?
-
-10.	Add the code to order the query in #9 from highest to lowest average star rating. Which company with more than 5000 reviews across all locations in the dataset has the highest star rating? What is that rating?
-
-11.	Find all the job titles that contain the word ‘Analyst’. How many different job titles are there? 
-
-12.	How many different job titles do not contain either the word ‘Analyst’ or the word ‘Analytics’? What word do these positions have in common?
-
+ SELECT COUNT DISTINCT title
+ FROM data_analyst_jobs
+ WHERE UPPER (TITLE) NOT LIKE '%Analyst%'AND title NOT LIKE '%Analytics';
+ 
+ 
 **BONUS:**
 You want to understand which jobs requiring SQL are hard to fill. Find the number of jobs by industry (domain) that require SQL and have been posted longer than 3 weeks. 
  - Disregard any postings where the domain is NULL. 
