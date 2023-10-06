@@ -8,12 +8,13 @@ Before beginning to answer questions, take some time to review the data dictiona
  SELECT COUNT(*)
  FROM data_analyst_jobs;
  
- -- 1793
+ --ans  '1793'
 
 -- 2.Write a query to look at just the first 10 rows. What company is associated with the job posting on the 10th row?
    SELECT* 
    FROM data_analyst_jobs
    LIMIT 10;
+   --'ans' ExxonMobil
    	
 
 
@@ -45,11 +46,13 @@ SELECT COUNT (*)
   
   --6.show the average star rating for companies in each state.The output should show the state as `state` and the average rating for the as `avg_rating`. Which state shows the highest average rating?
 
-  SELECT location AS state,
-  AVG(start_rating) AS average_rating
+  SELECT location AS state,AVG(start_rating) AS avg_rating
+  
   FROM data_analyst_jobs
   GROUP BY state
-  ORDER BY average_rating DESC;
+  ORDER BY avg_rating DESC;
+  
+  ans 'Nebraska'
   
  --7. Select unique job titles from the data_analyst_jobs table. How many are there?
 
@@ -84,35 +87,46 @@ SELECT COUNT (*)
 	What is that rating?*/
 
 
-SELECT company, avg(start_rating) as avg_star_rating
+SELECT company, avg(start_rating) AS avg_rating
    FROM data_analyst_jobs
-   WHERE review_count > 5000
-   Group by company
-   order by avg_star_rating desc
+   WHERE review_count > 5000 AND company IS NOT null
+   GROUP BY company
+   ORDER BY avg_rating DESC;
    
---    select company,review_count
---    from (SELECT company, review_count
--- 	   FROM data_analyst_jobs
--- 		 order by review_count asc
--- 	   )
--- 	   where review_count = max(review_count);
--- 	   Group by company, review_count
+  -- ans rating=4.12
+  
+    
+   
+   
 
 
 
 
 --11.Find all the job titles that contain the word ‘Analyst’. How many different job titles are there? 
- SELECT COUNT(title)
+ SELECT title 
  FROM data_analyst_jobs
  WHERE title LIKE '%Analyst%';
- 'ans'1636
+ 
+ 
+ 
+ 
+ 
+--  SELECT COUNT(DISTINCT title)
+ FROM data_analyst_jobs
+ WHERE title LIKE '%Analyst%';
+ 'ans' 754
+ 
+ 
+ 
  
  --12.ow many different job titles do not contain either the word ‘Analyst’ or the word ‘Analytics’? What word do these positions have in common?
 
 
- SELECT COUNT DISTINCT title
+ SELECT COUNT (DISTINCT title)
  FROM data_analyst_jobs
  WHERE UPPER (TITLE) NOT LIKE '%Analyst%'AND title NOT LIKE '%Analytics';
+ 
+ ANS '789'
  
  
 **BONUS:**
@@ -120,3 +134,6 @@ You want to understand which jobs requiring SQL are hard to fill. Find the numbe
  - Disregard any postings where the domain is NULL. 
  - Order your results so that the domain with the greatest number of `hard to fill` jobs is at the top. 
   - Which three industries are in the top 4 on this list? How many jobs have been listed for more than 3 weeks for each of the top 4?
+  
+  
+  
