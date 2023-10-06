@@ -119,14 +119,26 @@ SELECT company, avg(start_rating) AS avg_rating
  
  
  
- --12.ow many different job titles do not contain either the word ‘Analyst’ or the word ‘Analytics’? What word do these positions have in common?
+ --12.ow many different job titles do not contain either the word ‘Analyst’ or the word ‘Analytics’? 
+--  What word do these positions have in common?
 
 
- SELECT COUNT (DISTINCT title)
+ SELECT title
  FROM data_analyst_jobs
- WHERE UPPER (TITLE) NOT LIKE '%Analyst%'AND title NOT LIKE '%Analytics';
+ WHERE LOWER (title) NOT LIKE '%analyst%' and LOWER (title) NOT LIKE '%analytics%';
  
- ANS '789'
+ 
+ 
+ --SELECT COUNT (DISTINCT title)
+ FROM data_analyst_jobs
+ WHERE LOWER (title) NOT LIKE '%analyst%'AND  LOWER (title) NOT LIKE '%analytics%';
+ 
+ ---ANS 4 '',	'Tableau'
+ 
+ 
+ 
+ 
+ 
  
  
 **BONUS:**
